@@ -143,6 +143,10 @@ instance (BinaryShared k, BinaryShared e) => BinaryShared (Map.Map k e) where
     put m = put (Map.toAscList m)
     get   = liftM Map.fromDistinctAscList get
 
+instance BinaryShared Bool where
+    put = lift . Bin.put
+    get = lift Bin.get
+
 instance BinaryShared Char where
     put = lift . Bin.put
     get = lift Bin.get
