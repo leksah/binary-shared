@@ -5,7 +5,7 @@
 -----------------------------------------------------------------------------
 --
 -- Module      :  Data.Binary.Shared
--- Copyright   :  2007-2009 Jürgen Nicklisch-Franken
+-- Copyright   :  2007-2010 Juergen "jutaro" Nicklisch-Franken
 -- License     :  GPL
 --
 -- Maintainer  :  Jutaro <jutaro@leksah.org>
