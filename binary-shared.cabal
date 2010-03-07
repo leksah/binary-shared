@@ -18,7 +18,7 @@ description: I had problems with the size of the allocated heap space after seri
              with the generic solution in this package.
 category: Data
 author: Jürgen Nicklisch-Franken (jutaro)
-tested-with: GHC -any
+tested-with: GHC ==6.10 || ==6.12
 data-dir: ""
 exposed-modules: Data.Binary.Shared
 exposed: True
