@@ -1,10 +1,10 @@
 name: binary-shared
-version: 0.8
+version: 0.8.1
 cabal-version: -any
 build-type: Simple
 license: GPL
 license-file: LICENSE
-copyright: Jürgen Nicklisch-Franken (jutaro)
+copyright: Juergen Nicklisch-Franken (jutaro)
 maintainer: maintainer@leksah.org
 build-depends: base >=4.0.0.0 && <5.0.0.0, binary >=0.5,
                bytestring >=0.9.1.4, containers >=0.2.0.0, mtl >=1.1.0.2
@@ -17,7 +17,7 @@ description: I had problems with the size of the allocated heap space after seri
              binary does not support sharing of identical elements, so I came up
              with the generic solution in this package.
 category: Data
-author: Jürgen Nicklisch-Franken (jutaro)
+author: Juergen Nicklisch-Franken (jutaro)
 tested-with: GHC ==6.10 || ==6.12
 data-dir: ""
 exposed-modules: Data.Binary.Shared
