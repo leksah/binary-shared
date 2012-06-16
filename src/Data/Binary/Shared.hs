@@ -105,7 +105,9 @@ instance Eq Object where
                                 else (Just a) == cast b
 
 instance Ord Object where
-    compare (ObjC a) (ObjC b) = compare (typeOf a) (typeOf b)
+    compare (ObjC a) (ObjC b) = if typeOf a /= typeOf b
+                                then compare (typeOf a) (typeOf b)
+                                else compare (Just a) (cast b)
 
 type PutShared = St.StateT (Map Object Int, Int) PutM ()
 type GetShared = St.StateT (IntMap Object) Bin.Get
