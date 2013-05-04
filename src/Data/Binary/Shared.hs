@@ -1,7 +1,4 @@
-{-# OPTIONS_GHC
-    -XExistentialQuantification
-    -XDeriveDataTypeable
-    -XScopedTypeVariables #-}
+{-# LANGUAGE CPP, ExistentialQuantification, DeriveDataTypeable, ScopedTypeVariables #-}
 -----------------------------------------------------------------------------
 --
 -- Module      :  Data.Binary.Shared
@@ -23,7 +20,13 @@ module Data.Binary.Shared (
 ,   decodeSer
 ) where
 
-import Data.Typeable (typeRepKey,cast,Typeable(..))
+import Data.Typeable (cast,Typeable(..))
+#if MIN_VERSION_base(4,6,0)
+import Data.Typeable (typeOf)
+#else
+import Data.Typeable (typeRepKey)
+import System.IO.Unsafe (unsafePerformIO)
+#endif
 import qualified Control.Monad.State as St  (StateT(..),get,put)
 import Data.Map (Map(..))
 import qualified Data.Map as Map  (empty,fromDistinctAscList,toAscList,Map(..),insert,lookup)
@@ -31,7 +34,6 @@ import Data.IntMap (IntMap(..))
 import qualified Data.IntMap as IMap  (empty,IntMap(..),insert,lookup)
 import qualified Data.Binary as Bin (getWord8,putWord8,Get(..),Binary(..))
 import Data.Binary.Put (runPut,PutM(..),putWord64be)
-import System.IO.Unsafe (unsafePerformIO)
 import Control.Monad.Trans (lift)
 import Control.Monad (liftM2,replicateM,liftM)
 import qualified Data.Set as Set  (fromDistinctAscList,toAscList,Set(..))
@@ -106,7 +108,12 @@ instance Eq Object where
 
 instance Ord Object where
     compare (ObjC a) (ObjC b) = if typeOf a /= typeOf b
+#if MIN_VERSION_base(4,6,0)
                                 then compare (typeOf a) (typeOf b)
+#else
+                                then compare ((unsafePerformIO . typeRepKey . typeOf) a)
+                                                ((unsafePerformIO . typeRepKey . typeOf) b)
+#endif
                                 else compare (Just a) (cast b)
 
 type PutShared = St.StateT (Map Object Int, Int) PutM ()
